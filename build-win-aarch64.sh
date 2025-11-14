@@ -3,7 +3,7 @@
 set -e
 
 echo Launcher sha256sum
-sha256sum build/libs/Jirenyte.jar
+sha256sum build/libs/Alter.jar
 
 cmake -S liblauncher -B liblauncher/buildaarch64 -A ARM64
 cmake --build liblauncher/buildaarch64 --config Release
@@ -84,15 +84,15 @@ jlink \
   --add-modules jdk.xml.dom \
   --add-modules jdk.zipfs
 
-cp native/build-aarch64/src/Release/Jirenyte.exe build/win-aarch64/
-cp build/libs/Jirenyte.jar build/win-aarch64/
+cp native/build-aarch64/src/Release/Alter.exe build/win-aarch64/
+cp build/libs/Alter.jar build/win-aarch64/
 cp packr/win-aarch64-config.json build/win-aarch64/config.json
 cp liblauncher/buildaarch64/Release/launcher_aarch64.dll build/win-aarch64/
 
-echo Jirenyte.exe aarch64 sha256sum
-sha256sum build/win-aarch64/Jirenyte.exe
+echo Alter.exe aarch64 sha256sum
+sha256sum build/win-aarch64/Alter.exe
 
-dumpbin //HEADERS build/win-aarch64/Jirenyte.exe
+dumpbin //HEADERS build/win-aarch64/Alter.exe
 
 # We use the filtered iss file
 iscc build/filtered-resources/runeliteaarch64.iss

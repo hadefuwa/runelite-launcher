@@ -1,6 +1,6 @@
 {
   "classPath": [
-    "Jirenyte.jar"
+    "Alter.jar"
   ],
   "mainClass": "net.runelite.launcher.Launcher",
   "vmArgs": [
