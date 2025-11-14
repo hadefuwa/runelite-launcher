@@ -67,7 +67,10 @@ public class SplashScreen extends JFrame implements ActionListener
 		setUndecorated(true);
 		try (var in = SplashScreen.class.getResourceAsStream(LauncherProperties.getRuneLite128()))
 		{
-			setIconImage(ImageIO.read(in));
+			if (in != null)
+			{
+				setIconImage(ImageIO.read(in));
+			}
 		}
 		setLayout(null);
 		Container pane = getContentPane();
@@ -75,12 +78,27 @@ public class SplashScreen extends JFrame implements ActionListener
 
 		Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
 
-		BufferedImage logo;
+		BufferedImage logo = null;
 		try (var in = SplashScreen.class.getResourceAsStream(LauncherProperties.getRuneLiteSplash()))
 		{
-			logo = ImageIO.read(in);
+			if (in != null)
+			{
+				logo = ImageIO.read(in);
+			}
 		}
-		JLabel logoLabel = new JLabel(new ImageIcon(logo));
+		JLabel logoLabel;
+		if (logo != null)
+		{
+			logoLabel = new JLabel(new ImageIcon(logo));
+		}
+		else
+		{
+			// Fallback to text label if image is missing
+			logoLabel = new JLabel(Constants.SERVER_NAME);
+			logoLabel.setForeground(Color.WHITE);
+			logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			logoLabel.setFont(new Font(Font.DIALOG, Font.BOLD, 16));
+		}
 		pane.add(logoLabel);
 		logoLabel.setBounds(0, 0, WIDTH, WIDTH);
 
