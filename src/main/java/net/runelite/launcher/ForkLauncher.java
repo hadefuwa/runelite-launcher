@@ -154,9 +154,14 @@ class ForkLauncher
 
 		commands.addAll(clientArgs);
 
-		log.debug("Running process: {}", commands);
+		log.info("Forking new process with command: {}", commands);
+		log.info("Client arguments being passed: {}", clientArgs);
 
 		var builder = new ProcessBuilder(commands.toArray(new String[0]));
-		builder.start();
+		Process process = builder.start();
+		log.info("Forked process started with PID: {}", process.pid());
+		
+		// Don't wait for the process - it will run independently
+		// The forked process will call back with --classpath to launch the client
 	}
 }

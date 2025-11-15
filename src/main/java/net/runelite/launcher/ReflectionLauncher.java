@@ -59,10 +59,22 @@ class ReflectionLauncher
 		{
 			try
 			{
+				log.info("Loading main class: {}", LauncherProperties.getMain());
 				Class<?> mainClass = loader.loadClass(LauncherProperties.getMain());
+				log.info("Main class loaded successfully: {}", mainClass.getName());
 
 				Method main = mainClass.getMethod("main", String[].class);
+				log.info("Invoking main method with args: {}", clientArgs);
 				main.invoke(null, (Object) clientArgs.toArray(new String[0]));
+				log.info("Main method invocation completed");
+			}
+			catch (ClassNotFoundException ex)
+			{
+				log.error("Unable to find main class: {}", LauncherProperties.getMain(), ex);
+			}
+			catch (NoSuchMethodException ex)
+			{
+				log.error("Main method not found in class: {}", LauncherProperties.getMain(), ex);
 			}
 			catch (Exception ex)
 			{
@@ -70,6 +82,8 @@ class ReflectionLauncher
 			}
 		});
 		thread.setName(Constants.SERVER_NAME);
+		log.info("Starting client thread: {}", thread.getName());
 		thread.start();
+		log.info("Client thread started, launcher will continue running");
 	}
 }
