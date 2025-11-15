@@ -181,7 +181,9 @@ public class Launcher
 
 	public static void main(String[] args)
 	{
+		log.info("=== Alter Launcher Starting ===");
 		final OptionSet options = parseArgs(args);
+		log.info("Arguments parsed, postInstall flag: {}", options.has("postinstall"));
 
 		if (options.has("configure"))
 		{
@@ -193,6 +195,7 @@ public class Launcher
 		settings.apply(options);
 
 		final boolean postInstall = options.has("postinstall");
+		log.info("PostInstall mode: {}", postInstall);
 
 		// Setup logging
 		LOGS_DIR.mkdirs();
