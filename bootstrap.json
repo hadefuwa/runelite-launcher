@@ -1,10 +1,10 @@
 {
     "artifacts": [
         {
-            "hash": "caf3eb630dc6d5b46a20cd6c075cf7f61e37df79daa4fbb7d7fca156bd37c6ca",
-            "name": "client-1.11.11.jar",
-            "path": "https://repo.runelite.net/net/runelite/client/1.11.11/client-1.11.11.jar",
-            "size": 5203409
+            "hash": "d1bea2ade02678968605c61a24d378cc8ba986bce7f4a736e821a166697a3f1d",
+            "name": "custom-runelite-client.jar",
+            "path": "https://raw.githubusercontent.com/hadefuwa/runelite-launcher/main/custom-runelite-client.jar",
+            "size": 30230406
         }
     ],
     "clientJvm17Arguments": [
