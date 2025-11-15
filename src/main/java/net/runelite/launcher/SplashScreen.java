@@ -172,8 +172,15 @@ public class SplashScreen extends JFrame implements ActionListener
 
 	public static void init()
 	{
+		if (INSTANCE != null)
+		{
+			log.debug("Splash screen already initialized");
+			return;
+		}
+		
 		try
 		{
+			log.debug("Creating splash screen on EDT...");
 			SwingUtilities.invokeAndWait(() ->
 			{
 				if (INSTANCE != null)
@@ -183,18 +190,32 @@ public class SplashScreen extends JFrame implements ActionListener
 
 				try
 				{
+					log.debug("Setting look and feel...");
 					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+					log.debug("Creating splash screen instance...");
 					INSTANCE = new SplashScreen();
+					log.debug("Splash screen instance created successfully");
 				}
 				catch (Exception e)
 				{
 					log.warn("Unable to start splash screen", e);
+					INSTANCE = null; // Ensure INSTANCE is null on failure
 				}
 			});
+			log.debug("Splash screen init completed, INSTANCE is {}", INSTANCE != null ? "created" : "null");
 		}
-		catch (InterruptedException | InvocationTargetException bs)
+		catch (InterruptedException e)
 		{
-			throw new RuntimeException(bs);
+			log.warn("Splash screen init interrupted", e);
+			Thread.currentThread().interrupt();
+		}
+		catch (InvocationTargetException e)
+		{
+			log.warn("Splash screen init failed", e.getCause());
+		}
+		catch (Exception e)
+		{
+			log.warn("Unexpected error initializing splash screen", e);
 		}
 	}
 

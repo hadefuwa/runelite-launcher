@@ -293,8 +293,18 @@ public class Launcher
 				return;
 			}
 
-			SplashScreen.init();
+			log.info("Initializing splash screen...");
+			try
+			{
+				SplashScreen.init();
+				log.info("Splash screen initialized successfully");
+			}
+			catch (Exception e)
+			{
+				log.warn("Failed to initialize splash screen, continuing without it", e);
+			}
 			SplashScreen.stage(0, "Preparing", "Setting up environment");
+			log.info("Starting bootstrap download...");
 
 			// Print out system info
 			if (log.isDebugEnabled())
